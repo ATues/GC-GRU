@@ -1,0 +1,72 @@
+{
+  "data": {
+    "raw_data_path": "data/raw",
+    "processed_data_path": "data/processed",
+    "time_window_hours": 24,
+    "overlap_ratio": 0.5,
+    "min_users_per_slice": 10
+  },
+  "feature_extraction": {
+    "time_decay_factor": 0.1,
+    "w_like": 1.0,
+    "w_retweet": 0.8,
+    "w_comment": 1.0,
+    "beta": 0.7,
+    "w_r": 1.2,
+    "w_c": 1.5,
+    "alpha1": 0.6,
+    "alpha2": 0.4,
+    "epsilon": 1e-6
+  },
+  "ta_louvain": {
+    "lambda1": 0.6,
+    "lambda2": 0.4,
+    "gamma": 0.3,
+    "jaccard_threshold": 0.5,
+    "max_iterations": 100,
+    "convergence_threshold": 1e-6
+  },
+  "ag2vec": {
+    "walk_length": 80,
+    "num_walks": 10,
+    "p": 1.0,
+    "q": 1.0,
+    "embedding_dim": 128,
+    "window_size": 10,
+    "negative_samples": 5,
+    "learning_rate": 0.01,
+    "epochs": 100,
+    "batch_size": 1024,
+    "attention_dim": 64,
+    "dropout_rate": 0.1
+  },
+  "position_quantification": {
+    "label_smoothing_epsilon": 0.1,
+    "omega1": 0.6,
+    "omega2": 0.4,
+    "test_size": 0.2,
+    "random_state": 42,
+    "epsilon": 1e-6
+  },
+  "gc_gru": {
+    "input_dim": 131,
+    "hidden_dim": 64,
+    "num_layers": 2,
+    "dropout_rate": 0.3,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "epochs": 100,
+    "early_stopping_patience": 10,
+    "sequence_length": 10,
+    "test_size": 0.2,
+    "validation_size": 0.2,
+    "random_state": 42,
+    "weight_decay": 1e-5,
+    "gradient_clip_norm": 1.0
+  },
+  "output": {
+    "results_path": "results",
+    "models_path": "models",
+    "logs_path": "logs"
+  }
+}
