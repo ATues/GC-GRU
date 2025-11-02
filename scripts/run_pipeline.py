@@ -1,36 +1,19 @@
 #!/usr/bin/env python3
-"""
-运行引导型话题检测流程的脚本
-"""
+
 
 import os
 import sys
 import argparse
-import logging
+
 from pathlib import Path
 
-# 添加src目录到Python路径
 sys.path.append(str(Path(__file__).parent.parent / 'src'))
 
 from main_pipeline import GuidedTopicDetectionPipeline
 
-def setup_logging():
-    """设置日志"""
-    os.makedirs('logs', exist_ok=True)
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler('logs/run_pipeline.log'),
-            logging.StreamHandler()
-        ]
-    )
-
 def main():
-    """主函数"""
-    parser = argparse.ArgumentParser(description='引导型话题检测系统运行脚本')
+    parser = argparse.ArgumentParser(description='')
     
-    # 基本参数
     parser.add_argument('--mode', type=str, choices=['train', 'predict'], 
                        default='predict', help='运行模式：train（训练）或predict（预测）')
     parser.add_argument('--data_path', type=str, required=True, 
@@ -62,20 +45,16 @@ def main():
     
     # 检查参数
     if args.mode == 'train' and not args.labels_path:
-        logger.error("训练模式需要提供标签文件路径 --labels_path")
         return
     
     if args.mode == 'predict' and not args.model_path:
-        logger.warning("预测模式未提供模型路径，将使用未训练的模型")
-    
+        return
     # 检查数据路径
     if not os.path.exists(args.data_path):
-        logger.error(f"数据路径不存在: {args.data_path}")
         return
     
     # 检查配置文件
     if not os.path.exists(args.config_path):
-        logger.error(f"配置文件不存在: {args.config_path}")
         return
     
     try:
@@ -118,10 +97,7 @@ def main():
                 logger.error(f"训练失败: {result['error']}")
                 return 1
         
-        elif args.mode == 'predict':
-            # 预测模式
-            logger.info("开始预测模式...")
-            
+        elif args.mode == 'predict':     
             # 加载训练好的模型
             if args.model_path and os.path.exists(args.model_path):
                 pipeline.load_trained_model(args.model_path)
@@ -134,7 +110,6 @@ def main():
             )
             
             if result['success']:
-                logger.info("预测完成！")
                 predictions = result['predictions']
                 probabilities = result['probabilities']
                 
@@ -160,16 +135,12 @@ def main():
                     for i, (pred, prob) in enumerate(zip(predictions, probabilities)):
                         topic_type = "引导型" if pred == 0 else "普通"
                         f.write(f"时间片 {i+1}: {topic_type}话题 (概率: {prob:.4f})\n")
-                
-                logger.info(f"预测结果已保存到: {output_file}")
             else:
-                logger.error(f"预测失败: {result['error']}")
                 return 1
         
         return 0
         
     except Exception as e:
-        logger.error(f"运行过程中发生错误: {str(e)}")
         return 1
 
 if __name__ == "__main__":
