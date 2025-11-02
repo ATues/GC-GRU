@@ -6,27 +6,6 @@ A guided topic detection system based on group feature evolution, implementing a
 
 ##  Project Structure
 
-```
-├── src/                          # Core source code
-│   ├── main.py                   # Main pipeline entry point
-│   ├── data_slicer.py           # Data slicing module
-│   ├── feature_extraction.py    # Feature extraction module
-│   ├── ta_louvain.py           # TA-Louvain group partitioning algorithm
-│   ├── ag2vec.py               # AG2vec group feature representation
-│   ├── mut_inf.py              # Group position mutual influence quantification
-│   └── gc_gru.py               # GC-GRU topic detection model
-├── scripts/                     # Execution scripts
-│   ├── run_pipeline.py         # Main execution script
-│   └── train.py                # Training script
-├── configs/                     # Configuration files
-│   └── pipeline_config.json    # Main configuration file
-├── data/                        # Data directory
-│   ├── raw/                    # Raw data
-│   └── processed/              # Processed data
-├── tests/                       # Test files
-├── requirements.txt             # Dependencies list
-└── setup.py                    # Installation configuration
-```
 
 
 ### Requirements
@@ -44,30 +23,6 @@ git https://github.com/ATues/GC-GRU.git
 pip install -r requirements.txt
 
 ```
-
-
-
-### 1. Train
-
-```bash
-python src/main.py \
-    --dataset weibo \
-    --mode train \
-    --label_path data/processed/weibo/gc_gru/labels.csv \
-    --model_path models/gc_gru_model.pth
-```
-
-### 2. Test
-
-```bash
-python src/main.py \
-    --dataset weibo \
-    --mode predict \
-    --model_path models/gc_gru_model.pth
-```
-
-### 3. Programming Interface
-
 
 ##  Configuration Parameters
 
@@ -92,7 +47,7 @@ Main configuration parameters (`configs/pipeline_config.json`):
 
 ## Dataset
 
-The datasets used in this paper are **not included** in this repository due to licensing restrictions.  
+The datasets used in this paper are **not included** in this repository.  
 However, they are **publicly available** and can be accessed from the following sources:
 
 | Dataset Name | Description | Access Link                                                                      |
