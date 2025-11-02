@@ -6,8 +6,6 @@ A guided topic detection system based on group feature evolution, implementing a
 
 ##  Project Structure
 
-
-
 ### Requirements
 
 - Python >= 3.8
@@ -23,27 +21,6 @@ git https://github.com/ATues/GC-GRU.git
 pip install -r requirements.txt
 
 ```
-
-##  Configuration Parameters
-
-Main configuration parameters (`configs/pipeline_config.json`):
-
-### Data Slicing Parameters
-- `time_window_hours`: Time window size (hours)
-- `overlap_ratio`: Slice overlap ratio
-- `min_users_per_slice`: Minimum users per slice
-
-### Feature Extraction Parameters
-- `time_decay_factor`: Time decay factor
-- `beta`: Short-term dynamic performance weight
-- `alpha1`, `alpha2`: Topic awareness weight parameters
-
-### Model Parameters
-- `hidden_dim`: Hidden layer dimension
-- `num_layers`: Number of GRU layers
-- `sequence_length`: Time series length
-- `epochs`: Number of training epochs
-
 
 ## Dataset
 
